@@ -10,14 +10,14 @@ while ulang:
     
     # Membuat if jika modulus false atau dibawah 0
     if modulus == False:
-        # Meminta input untuk modulus hash table
+        # Meminta input untuk modulus tabel hash
         modulus = int(input("Masukkan modulus untuk tabel hash (angka positif): "))
         if modulus <= 0:
             print("Modulus harus angka positif. Silakan coba lagi.")
             continue
         else:
             print(f"Modulus tabel hash yang valid: {modulus}")
-            # Membuat objek hash table dengan ukuran modulus
+            # Membuat objek tabel hash dengan ukuran modulus
             Tabel2b = TabelHash(modulus)
             print()
                 
@@ -30,10 +30,10 @@ while ulang:
         print("5. Tampilkan Data")
         print("6. Keluar")
 
-        # Meminta input untuk modulus hash table
+        # Meminta input untuk modulus tabel hash
         pilihan = input("Silahkan pilih (1, 2, 3, atau 4) lalu Enter: ")
 
-        # Menambahkan data ke dalam hash table
+        # Menambahkan data ke dalam tabel hash
         if pilihan == '1':
             dataBaru = input("Masukkan data yang ingin anda tambahkan dengan format (data, key): ")
             # Memisahkan data jika ada koma
@@ -51,7 +51,7 @@ while ulang:
             print(f"Data '{value}' dengan key '{key}' berhasil ditambahkan.")
             print()
 
-        # Menghapus data dari hash table
+        # Menghapus data dari tabel hash
         elif pilihan == '2':
             dataHapus = input("Masukkan data yang ingin dihapus: ")
             key = Tabel2b.searchKey(dataHapus)
@@ -63,7 +63,7 @@ while ulang:
                 print(f"Data '{dataHapus}' tidak ditemukan.")
             print()
 
-        # Mengecek apakah data ada dalam hash table
+        # Mengecek apakah data ada dalam tabel hash
         elif pilihan == '3':
             dataCek = input("Masukkan data yang ingin dicek: ")
             key = Tabel2b.searchKey(dataCek)
@@ -73,7 +73,7 @@ while ulang:
                 print(f"Data '{dataCek}' tidak ditemukan.")
             print()
             
-        # Mengubah data dalam hash table
+        # Mengubah data dalam tabel hash
         elif pilihan == '4':
             dataUbah = input("Masukkan data yang ingin diubah dengan format (data, key): ")
             # Memisahkan data jika ada koma
