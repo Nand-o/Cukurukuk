@@ -16,13 +16,6 @@ class SenaraiBerantai:
         new_node.next = self.head
         self.head = new_node
 
-    def display(self):
-        print("Isi Senarai Berantai : ")
-        current = self.head
-        while current:
-            current.display()
-            current = current.next
-
     def find(self, kode):
         current = self.head
         while current:
@@ -43,34 +36,61 @@ class SenaraiBerantai:
                 return True
             prev = current
             current = current.next
-        print("Data yang akan dihapus tidak ditemukan!")
         return False
 
-sb = SenaraiBerantai()
-sb.insert("CDR", "Candra")
-sb.insert("HMM", "Hamim")
-sb.insert("NDN", "Nando")
-sb.insert("FRS", "Faris")
+    def display_all(self):
+        print("\nIsi senarai berantai:")
+        current = self.head
+        if not current:
+            print("Senarai kosong.")
+        while current:
+            current.display()
+            current = current.next
 
-print("Keadaan awal:")
-sb.display()
+    def is_empty(self):
+        return self.head is None
 
-print("\nSetelah NDN dihapus:")
-sb.remove("NDN")
-sb.display()
+def main():
+    sb = SenaraiBerantai()
+    while True:
+        print("\n=== Menu Senarai Berantai (Pilih Angka Secara Manual lalu Enter) ===")
+        print("1. Insert data")
+        print("2. Cari data")
+        print("3. Hapus data")
+        print("4. Tampilkan semua")
+        print("5. Keluar")
+        pilihan = input("Pilih menu: ")
 
-kode_dicari = "NDN"
-print(f"\nPencarian {kode_dicari}:")
-hasil = sb.find(kode_dicari)
-if hasil:
-    hasil.display()
-else:
-    print(f"{kode_dicari} tidak ditemukan.")
+        if pilihan == "1":
+            kode = input("Masukkan kode: ").upper()
+            nama = input("Masukkan nama: ")
+            sb.insert(kode, nama)
+        elif pilihan == "2":
+            if sb.is_empty():
+                print("Senarai kosong, Tidak ada yang bisa dicari!")
+            else:
+                kode = input("Masukkan kode yang dicari: ").upper()
+                hasil = sb.find(kode)
+                if hasil:
+                    print("Data ditemukan:")
+                    hasil.display()
+                else:
+                    print("Data tidak ditemukan.")
+        elif pilihan == "3":
+            if sb.is_empty():
+                print("Senarai kosong, Tidak ada yang bisa dihapus!")
+            else:
+                kode = input("Masukkan kode yang ingin dihapus: ").upper()
+                if sb.remove(kode):
+                    print("Data berhasil dihapus.")
+                else:
+                    print("Data tidak ditemukan.")
+        elif pilihan == "4":
+            sb.display_all()
+        elif pilihan == "5":
+            break
+        else:
+            print("Pilihan tidak ada!")
 
-kode_dicari = "HMM"
-print(f"\nPencarian {kode_dicari}:")
-hasil = sb.find(kode_dicari)
-if hasil:
-    hasil.display()
-else:
-    print(f"{kode_dicari} tidak ditemukan.")
+if __name__ == "__main__":
+    main()
