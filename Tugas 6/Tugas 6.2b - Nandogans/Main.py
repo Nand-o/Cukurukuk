@@ -9,7 +9,7 @@ modulus = False
 while ulang:
     
     # Membuat if jika modulus false atau dibawah 0
-    if modulus == False:
+    while modulus == False or modulus <= 0:
         # Meminta input untuk modulus tabel hash
         modulus = int(input("Masukkan modulus untuk tabel hash (angka positif): "))
         if modulus <= 0:
@@ -21,7 +21,6 @@ while ulang:
             Tabel2b = TabelHash(modulus)
             print()
                 
-    else:
         print("Menu:")
         print("1. Tambah Data")
         print("2. Hapus Data")
