@@ -6,54 +6,64 @@ class Simpul:
     def display(self):
         print(f"{self.kode} : {self.nama}")
 
-def hapus(senarai, kode):
-    posisi = -1
-    for i in range(len(senarai)):
-        if senarai[i].kode == kode:
-            posisi = i
-            break
-    if posisi != -1:
-        del senarai[posisi]
-    else:
-        print(f"{kode} tidak dapat dihapus.")
-
 def cari(senarai, kode):
     for simpul in senarai:
         if simpul.kode == kode:
             return simpul
     return None
 
-# Main
-senarai = []
-senarai.insert(0, Simpul("CDR", "Candra"))
-senarai.insert(0, Simpul("HMM", "Hamim"))
-senarai.insert(0, Simpul("NDN", "Nando"))
-senarai.insert(0, Simpul("FRS", "Faris"))
+def hapus(senarai, kode):
+    for i in range(len(senarai)):
+        if senarai[i].kode == kode:
+            del senarai[i]
+            return True
+    return False
 
-print("Keadaan awal:")
-for simpul in senarai:
-    simpul.display()
+def main():
+    senarai = []
+    while True:
+        print("\n=== Menu Senarai Berantai (List Python) ===")
+        print("1. Insert data")
+        print("2. Cari data")
+        print("3. Hapus data")
+        print("4. Tampilkan semua")
+        print("5. Keluar")
+        pilihan = input("Pilih menu: ")
 
-hapus(senarai, "NDN")
+        if pilihan == "1":
+            kode = input("Masukkan kode: ").upper()
+            nama = input("Masukkan nama: ")
+            senarai.insert(0, Simpul(kode, nama))  # seperti linked list (dari depan)
+        elif pilihan == "2":
+            if not senarai:
+                print("Senarai kosong, Tidak ada yang bisa dicari!")
+            else:
+                kode = input("Masukkan kode yang dicari: ").upper()
+                hasil = cari(senarai, kode)
+                if hasil:
+                    print("Data ditemukan:")
+                    hasil.display()
+                else:
+                    print("Data tidak ditemukan.")
+        elif pilihan == "3":
+            if not senarai:
+                print("Senarai kosong, Tidak ada yang bisa dihapus!")
+            else:
+                kode = input("Masukkan kode yang ingin dihapus: ").upper()
+                if hapus(senarai, kode):
+                    print("Data berhasil dihapus.")
+                else:
+                    print("Data tidak ditemukan.")
+        elif pilihan == "4":
+            print("\nIsi senarai:")
+            if not senarai:
+                print("Senarai kosong.")
+            for simpul in senarai:
+                simpul.display()
+        elif pilihan == "5":
+            break
+        else:
+            print("Pilihan tidak valid!")
 
-print("\nSetelah NDN dihapus:")
-for simpul in senarai:
-    simpul.display()
-
-kode_dicari = "NDN"
-print(f"\nPencarian {kode_dicari}:")
-hasil = cari(senarai, kode_dicari)
-if hasil:
-    print("Hasil pencarian:")
-    hasil.display()
-else:
-    print(f"{kode_dicari} tidak ditemukan.")
-
-kode_dicari = "HMM"
-print(f"\nPencarian {kode_dicari}:")
-hasil = cari(senarai, kode_dicari)
-if hasil:
-    print("Hasil pencarian:")
-    hasil.display()
-else:
-    print(f"{kode_dicari} tidak ditemukan.")
+if __name__ == "__main__":
+    main()
