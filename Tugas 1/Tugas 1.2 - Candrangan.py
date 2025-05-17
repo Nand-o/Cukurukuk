@@ -1,5 +1,9 @@
 while True:
-    desimal = float(input("Masukkan bilangan desimal = "))
+    try: 
+        desimal = float(input("Masukkan bilangan desimal = "))
+    except:
+        print('Input tidak valid, harus bilangan desimal')
+        continue    
     stackInt = []
     stackFloat = []
 

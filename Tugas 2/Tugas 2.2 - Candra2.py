@@ -1,9 +1,9 @@
 class dataKota:
     def __init__(self):
-        self.maksimalData = 10
+        self.maksimalData = int(input("Jumlah data yang diinginkan : "))
         self.jumlahKota = 0
         self.kota = []
-        self.kotaX = ''
+        # self.kotaX = ''
 
     def tambahData(self, kotaBaru):
         if self.jumlahKota == self.maksimalData:
@@ -66,13 +66,13 @@ def menu():
         match pilihan:
             case 1 :
                 print('Penambahan data. \nKota : ')
-                data.kotaX = input('')
-                if not data.tambahData(data.kotaX):
+                kotaX = input('')
+                if not data.tambahData(kotaX):
                     continue
             case 2 :
                 print('Penghapusan Data. \nKota : ')
-                data.kotaX = input('')
-                data.hapusData(data.kotaX)
+                kotaX = input('')
+                data.hapusData(kotaX)
             case 3 :
                 data.tampilkanData()
             case 4 : 
