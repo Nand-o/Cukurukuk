@@ -57,7 +57,6 @@ while ulang == True:
             
             for i in range(len(tumpukanParagraf)):
                 print()
-                # print(f"Paragraf ke-{i+1}: {tumpukanParagraf[i]}")
                 print()
                 # Menggunakan loop untuk membalikkan string
                 tumpukanHasil = []
