@@ -1,4 +1,6 @@
 # Membalikkan String menggunakan bahasa Python
+with open('data.txt', 'r', encoding='utf-8') as file:
+    lines = file.readlines()
 
 ulang = True
 
@@ -9,17 +11,42 @@ while ulang == True:
     print()
     print("Membalikkan String")
     print("===================================")
-    print("1. Menambahkan paragraf")
+    print("Menu:")
+    print("0. Memasukkan data melalui file dan membalikkan string")
+    print("1. Menambahkan paragraf melalui terminal ke dalam tumpukan")
     print("2. Jalankan pembalikan string")
     print("3. Keluar dari program")
     
     pilihan = input("Silahkan pilih (1 atau 2) lalu Enter: ")
     
-    if pilihan == '1':
-        inputStr = input("Masukkan string yang ingin dibalik: ")
-        
-        tumpukanParagraf.append(inputStr) # Menyimpan string ke dalam tumpukanParagraf
-        print("String berhasil ditambahkan ke dalam tumpukan.")
+    if pilihan  == '0':
+        print()
+        print("Data hasil pembalikan string:")
+        for line in lines:
+            dataTxt = line.strip()[::-1] # Membaca file dan membalikkan string
+            print(dataTxt)
+    
+    elif pilihan == '1':  
+        current_paragraph = []
+            
+        print("Silakan masukkan paragraf satu per satu.")
+        print("Jika paragraf sudah selesai, tulis SELESAI lalu tekan Enter.")    
+            
+        while True:
+            line = input()
+            if line == "SELESAI":
+                # Simpan paragraf terakhir jika ada
+                if current_paragraph:
+                    tumpukanParagraf.append('\n'.join(current_paragraph))
+                break
+                
+                # Jika baris kosong, ini menandakan paragraf baru
+            if line.strip() == "":
+                if current_paragraph:  # Hanya tambahkan jika paragraf tidak kosong
+                    tumpukanParagraf.append('\n'.join(current_paragraph))
+                    current_paragraph = []
+            else:
+                current_paragraph.append(line)
         
         
     elif pilihan == '2':
@@ -30,7 +57,7 @@ while ulang == True:
             
             for i in range(len(tumpukanParagraf)):
                 print()
-                print(f"String ke-{i+1}: {tumpukanParagraf[i]}")
+                # print(f"Paragraf ke-{i+1}: {tumpukanParagraf[i]}")
                 print()
                 # Menggunakan loop untuk membalikkan string
                 tumpukanHasil = []
@@ -45,15 +72,13 @@ while ulang == True:
                         kataBalik = huruf + kataBalik
                     tumpukanHasil.append(kataBalik) # Menyimpan kata yang sudah dibalik ke dalam tumpukanHasil
                 
-                print()
-                print("Hasil pembalikan string: ", end="")
+                print(f"Hasil pembalikan paragraf ke-{i+1}: ")
                 
                 # Menggunakan loop untuk menampilkan hasil
                 for kata in tumpukanHasil:
                     print(kata, end=" ")
-                print()    
-            print()      
-
+                print()   
+                   
             
     elif pilihan == '3':
         print("Terima kasih telah menggunakan program ini.")
