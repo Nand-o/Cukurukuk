@@ -7,7 +7,8 @@ class ArrayListAntrian:
     def tambahData(self, item):
         self.data.append(item)
         
-    def hapusData(self, item):
+    def hapusDataSP(self, item):
+        # Sesuai dengan prinsip antrian, data yang dihapus adalah data yang paling awal
         # Mengecek apakah data merupakan urutan pertama
         if len(self.data) > 0 and self.data[0] == item:
             self.data.pop(0)
@@ -20,6 +21,14 @@ class ArrayListAntrian:
                     urutanData = i
                     print(f"Data '{item}' tidak bisa dihapus karena data tersebut berada di urutan ke-{urutanData + 1}.")
                     return None
+        
+    def hapusDataSC(self, item):
+        # Sesuai dengan contoh program yang diberikan
+        if len(self.data) > 0:
+            if item in self.data:
+                # Menghapus data dari antrian
+                self.data.remove(item)
+                print(f"Data '{item}' berhasil dihapus dari antrian.")
             else:
                 print(f"Data '{item}' tidak ditemukan dalam antrian.")
                 return None
@@ -82,13 +91,14 @@ ulang = True
 while ulang == True:  
     print("Menu:")
     print("1. Tambah Data")
-    print("2. Hapus Data")
-    print("3. Tampilkan Data")
-    print("4. Melihat Antrian Awal")
-    print("5. Melihat Antrian Akhir")
-    print("6. Mencari Data")
-    print("7. Jumlah Antrian")
-    print("8. Keluar")
+    print("2. Hapus Data Sesuai Prinsip Antrian")
+    print("3. Hapus Data Sesuai Contoh Program")
+    print("4. Tampilkan Data")
+    print("5. Melihat Antrian Awal")
+    print("6. Melihat Antrian Akhir")
+    print("7. Mencari Data")
+    print("8. Jumlah Antrian")
+    print("9. Keluar")
     
     # Menggunakan input untuk pengguna memilih menu
     pilihan = (input("Silahkan pilih (1, 2, 3, atau 4) lalu Enter: "))
@@ -103,14 +113,20 @@ while ulang == True:
         print("Data berhasil ditambahkan.")
         print()
         
-    # Menghapus data dari antrian
+    # Menghapus data dari antrian sesuai prinsip antrian
     elif pilihan == '2':
         dataHapus = input("Masukkan data yang ingin anda hapus: ")
-        contohData.hapusData(dataHapus.strip()) # (Strip) Menghapus spasi di awal dan akhir
+        contohData.hapusDataSP(dataHapus.strip()) # (Strip) Menghapus spasi di awal dan akhir
+        print()
+    
+    # Menghapus data dari antrian sesuai contoh program
+    elif pilihan == '3':
+        dataHapus = input("Masukkan data yang ingin anda hapus: ")
+        contohData.hapusDataSC(dataHapus.strip()) # (Strip) Menghapus spasi di awal dan akhir
         print()
         
     # Menampilkan data dalam antrian
-    elif pilihan == '3':
+    elif pilihan == '4':
         urutkan = input("Apakah Anda ingin menampilkan data yang sudah terurut? (y/n): ").lower()
         if urutkan == 'y':
             contohData.tampilkanData(urutkan=True)
@@ -119,29 +135,29 @@ while ulang == True:
         print()
     
     # Melihat data awal dalam antrian 
-    elif pilihan == '4':
+    elif pilihan == '5':
         contohData.lihatAntrianAwal()
         print()
        
     # Melihat data akhir dalam antrian 
-    elif pilihan == '5':
+    elif pilihan == '6':
         contohData.lihatAntrianAkhir()
         print()
         
     # Mencari data dalam antrian
-    elif pilihan == '6':
+    elif pilihan == '7':
         dataCari = input("Masukkan data yang ingin anda cari: ")
         contohData.mencariData(dataCari.strip())
         print()
         
     # Menampilkan jumlah antrian
-    elif pilihan == '7':
+    elif pilihan == '8':
         dataJumlah = contohData.jumlahAntrian()
         print(f"Jumlah antrian saat ini: {dataJumlah}")
         print()
         
     # Keluar dari program
-    elif pilihan == '8':
+    elif pilihan == '9':
         print("Data akhir dalam antrian:")
         # Menampilkan data dalam antrian
         contohData.tampilkanData()
