@@ -4,14 +4,6 @@ class Node:
         self.right = None
         self.val = key
 
-def printTree(node, indent="", is_left=True):
-    if node is not None:
-        printTree(node.right, indent + ("│   " if is_left else "    "), False)
-
-        print(indent + ("└── " if is_left else "┌── ") + str(node.val))
-
-        printTree(node.left, indent + ("    " if is_left else "│   "), True)
-
 def insert(root, key):
     if root is None:
         return Node(key)
@@ -43,6 +35,14 @@ def postOrder(root):
     postOrder(root.left)
     postOrder(root.right)
     print(root.val, end=' ')
+    
+def printTree(node, indent="", is_left=True):
+    if node is not None:
+        printTree(node.right, indent + ("│   " if is_left else "    "), False)
+
+        print(indent + ("└── " if is_left else "┌── ") + str(node.val))
+
+        printTree(node.left, indent + ("    " if is_left else "│   "), True)
 
 def menu():
     print("\n=== MENU BST ===")
