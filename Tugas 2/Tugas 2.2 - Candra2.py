@@ -3,7 +3,7 @@ class dataKota:
         self.maksimalData = int(input("Jumlah data yang diinginkan : "))
         self.jumlahKota = 0
         self.kota = []
-        # self.kotaX = ''
+        self.history = []
 
     def tambahData(self, kotaBaru):
         if self.jumlahKota == self.maksimalData:
@@ -25,6 +25,8 @@ class dataKota:
                 self.kota[i] = self.kota[i-1]
             self.kota[posisi] = kotaBaru
         self.jumlahKota += 1
+        if kotaBaru not in self.history:
+            self.history.append(kotaBaru)
         return True
 
     def hapusData(self, kotaX):
@@ -35,7 +37,10 @@ class dataKota:
                 posisi = i
                 break
         if posisi == -1:
-            print('Data tidak ditemukan')
+            if kotaX in self.history:
+                print('Data sudah pernah dihapus')
+            else:
+                print('Data tidak ditemukan')
             return False
         # Penghapusan Kota
         for i in range(posisi+1, self.jumlahKota):
@@ -62,16 +67,20 @@ def menu():
         print("2. Hapus Data")
         print("3. Tampilkan Data")
         print("4. Selesai")
-        pilihan = int(input("Masukkan pilihan (1/2/3/4): "))   
+        try:
+            pilihan = int(input("Masukkan pilihan (1/2/3/4): "))
+        except ValueError:
+            print("\nInput harus berupa angka\n")
+            continue
         match pilihan:
             case 1 :
                 print('Penambahan data. \nKota : ')
-                kotaX = input('')
+                kotaX = input('').strip()
                 if not data.tambahData(kotaX):
                     continue
             case 2 :
                 print('Penghapusan Data. \nKota : ')
-                kotaX = input('')
+                kotaX = input('').strip()
                 data.hapusData(kotaX)
             case 3 :
                 data.tampilkanData()

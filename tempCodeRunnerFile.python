@@ -1,6 +1,38 @@
-list = []
-for i in range(5):
-    
-    list.append(i)
-    print(list)
-    list.pop()
+# Soal
+# Bahasa inggris
+# given a set of positive integer N, use backtracking to find a subset of these integers that have N as their sum
+
+# Bahasa indonesia
+# Diberikan sekumpulan bilangan bulat positif dan bilangan bulat positif N,
+# gunakan penelusuran balik untuk menemukan himpunan bagian dari bilangan bulat tersebut yang
+# memiliki N sebagai jumlah mereka
+
+def subsetSum(arr, N):
+    result = []
+
+    # Fungsi rekursif untuk mencari himpunan bagian
+    def backtrack(start, path, total):
+        if total == N:
+            result.append(path[:])
+            return
+        if total > N:
+            return
+
+        for i in range(start, len(arr)):
+            path.append(arr[i])
+            backtrack(i + 1, path, total + arr[i])
+            path.pop()
+
+    backtrack(0, [], 0) # Memulai pencarian dari indeks 0, dengan jalur kosong dan total 0
+
+    # Mengembalikan hasil pencarian
+    if not result:
+        return "Tidak ada himpunan bagian yang memiliki jumlah {}".format(N)
+    return result
+
+# Contoh penggunaan
+himpunan = [1, 2, 3, 4, 1]
+N = 7
+hasil = subsetSum(himpunan, N)
+
+print("Himpunan bagian yang berjumlah", N, ":", hasil)

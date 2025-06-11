@@ -1,0 +1,1 @@
+        print('Input tidak valid, harus bilangan desimal')

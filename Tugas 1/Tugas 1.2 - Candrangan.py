@@ -4,8 +4,10 @@ def converter(string,base):
     # integer
     a = int(desimal)
     hex_map = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
+    print("\nProses Bilangan Bulat")
     while a>0:
         digit = a%base
+        print(f"{a} : {base} = {a//base} sisa {digit}")
         if base==16 and digit>=10:
             stackInt.append(hex_map[digit])
         else:
@@ -13,15 +15,17 @@ def converter(string,base):
         a = a//base
     digits = ''
     while stackInt:
-        digits += str(list.pop(stackInt))
+        digits += str(stackInt.pop())
     # float
     floated = desimal - int(desimal)
     if floated == 0.00:
         print(f"{string} = {digits}")
     else:
+        print("\nProses Float/Koma")
         while floated>0:
             floated *= base
             digit = int(floated)
+            print(f"{floated} x {base} =  sisa {digit}")
             if base==16 and digit>=10:
                 stackFloat.append(hex_map[digit])
             else: 
@@ -29,24 +33,22 @@ def converter(string,base):
             floated -= int(floated)
         floats = ''
         while stackFloat:
-            floats += str(list.pop(stackFloat))
+            floats += str(stackFloat.pop())
         print(f"{string} = {digits}.{floats[::-1]}")
 
 while True:
     try: 
         desimal = float(input("Masukkan bilangan desimal = "))
-    except:
+    except ValueError:
         print('Input tidak valid, harus bilangan desimal')
         continue    
     
-    print(f"Desimal = {desimal}")
-    print()
-
+    print(f"\nDesimal = {desimal}\n")
     print("Hasilnya : ")
-    converter('Biner', 2)
-    converter('Oktal', 8)
-    converter('Heksadesimal', 16)
+    kumpulanConvert = [('Biner', 2),('Oktal', 8),('Heksadesimal', 16)]
+    for string, base in kumpulanConvert:
+        converter(string, base)
     
-    loop = input("ulangi kode? yes/no\n")
+    loop = input("\nulangi kode? yes/no\n")
     if loop.lower() != 'yes':
         break
