@@ -1,77 +1,103 @@
-def selection_sort(data, mode='1'):
-    n = len(data)
-    print("\nData awal:", "; ".join(map(str, data)) + ";")
-
-    for pos_awal in range(n - 1):
-        print(f"\nTahap ke-{pos_awal+1}:")
-        pos_min = pos_awal
-        for j in range(pos_awal + 1, n):
-            print(f"  Iterasi ke-{j - pos_awal}: membandingkan {data[pos_min]} dan {data[j]}", end="")
-
-            if (mode == '1' and data[pos_min] > data[j]) or (mode == '2' and data[pos_min] < data[j]):
-                pos_min = j
-                print(f" -> {data[pos_min]} lebih {'kecil' if mode == '1' else 'besar'}, jadi dipilih")
+def custom_forward_insert_sort(data, ascending=True):
+    steps = []
+    for i in range(len(data)):
+        selected_idx = i
+        for j in range(i + 1, len(data)):
+            if ascending:
+                if data[j] < data[selected_idx]:
+                    selected_idx = j
             else:
-                print(" -> tidak dipilih")
+                if data[j] > data[selected_idx]:
+                    selected_idx = j
 
-        if pos_awal != pos_min:
-            data[pos_awal], data[pos_min] = data[pos_min], data[pos_awal]
-            print(f"  Tukar elemen: {data[pos_min]} dengan {data[pos_awal]}")
-        else:
-            print("  Tidak perlu tukar elemen")
+        selected_val = data[selected_idx]
+        for k in range(selected_idx, i, -1):
+            data[k] = data[k - 1]
+        data[i] = selected_val
 
-        print("  " + "; ".join(map(str, data)) + ";")
-
-    print("\nData sudah terurut.")
-    hasil = "; ".join(map(str, data)) + ";"
-    print(f"\nHasil akhir ({'menaik' if mode == '1' else 'menurun'}): {hasil}")
+        steps.append(data.copy())
+    return steps
 
 
-# Program utama
-while True:
-    print("\nProgram Selection Sort")
-    print("Pilih metode input atau (3) jika ingin keluar:")
-    print("1. Masukkan jumlah data")
-    print("2. Masukkan data bebas ('selesai' untuk berhenti)")
-    print("3. Exit")
-    pilihan = input("Pilihan (1/2/3): ")
-
-
+def input_manual():
     data = []
-    if pilihan == '1':
-        jumlah = int(input("Jumlah data: "))
-        for i in range(jumlah):
-            angka = int(input(f"Data ke-{i+1}: "))
-            data.append(angka)
-    elif pilihan == '2':
-        while True:
-            masukan = input("Masukkan data (atau ketik 'selesai'): ")
-            if masukan.lower() == 'selesai':
-                break
-            data.append(int(masukan))
-    elif pilihan == '3':
-        print("Program selesai")
-        break
-    else:
-        print("Pilihan tidak valid.")
-        continue
+    print("Masukkan data satu per satu (ketik 'selesai' untuk mengakhiri):")
+    while True:
+        inp = input(f"Data ke-{len(data)+1}: ")
+        if inp.lower() == "selesai":
+            break
+        try:
+            data.append(float(inp))
+        except ValueError:
+            print("Harap masukkan angka atau 'selesai'.")
+    return data
 
-    print("\nPilih mode pengurutan:")
-    print("1. Menaik")
-    print("2. Menurun")
-    print("3. Keduanya")
-    mode = input("Pilihan (1/2): ")
-    if mode == '1' or mode == '2':
-        selection_sort(data.copy(), mode)
-    elif mode == '3':
-        print("\n Mode Menaik ")
-        selection_sort(data.copy(), '1')
-        print("\n Mode Menurun ")
-        selection_sort(data.copy(), '2')
-    else:
-        print("Pilihan tidak valid.")
-        continue
 
-    lanjut = input("\nIngin lanjut? (y/n): ")
-    if lanjut.lower() != 'y':
-        break
+def input_jumlah():
+    while True:
+        try:
+            jumlah = int(input("Masukkan jumlah data: "))
+            data = []
+            for i in range(jumlah):
+                angka = float(input(f"Data ke-{i+1}: "))
+                data.append(angka)
+            return data
+        except ValueError:
+            print("Input tidak valid, coba lagi.")
+
+
+def main():
+    while True:
+        print("\nPilih metode input atau (3) jika ingin keluar:")
+        print("1. Masukkan jumlah data")
+        print("2. Masukkan data bebas ('selesai' untuk berhenti)")
+        print("3. Exit")
+        pilihan = input("Pilihan (1/2/3): ")
+
+        if pilihan == '3':
+            print("Keluar dari program.")
+            break
+        elif pilihan == '1':
+            data = input_jumlah()
+        elif pilihan == '2':
+            data = input_manual()
+        else:
+            print("Pilihan tidak valid!")
+            continue
+
+        print("\nData yang dimasukkan:", data)
+        print("\nPilih mode pengurutan:")
+        print("1. Menaik")
+        print("2. Menurun")
+        print("3. Keduanya")
+        mode = input("Pilihan (1/2/3): ")
+
+        if mode == '1':
+            print("\n=== Pengurutan Menaik ===")
+            result = custom_forward_insert_sort(data.copy(), ascending=True)
+            print("Input:", data)
+            for i, step in enumerate(result):
+                print(f"Step{i+1}:", step)
+        elif mode == '2':
+            print("\n=== Pengurutan Menurun ===")
+            result = custom_forward_insert_sort(data.copy(), ascending=False)
+            print("Input:", data)
+            for i, step in enumerate(result):
+                print(f"Step{i+1}:", step)
+        elif mode == '3':
+            print("\n=== Pengurutan Menaik ===")
+            result_up = custom_forward_insert_sort(data.copy(), ascending=True)
+            print("Input:", data)
+            for i, step in enumerate(result_up):
+                print(f"Step{i+1}:", step)
+            print("\n=== Pengurutan Menurun ===")
+            result_down = custom_forward_insert_sort(data.copy(), ascending=False)
+            print("Input:", data)
+            for i, step in enumerate(result_down):
+                print(f"Step{i+1}:", step)
+        else:
+            print("Pilihan mode tidak valid.")
+
+
+if __name__ == "__main__":
+    main()
