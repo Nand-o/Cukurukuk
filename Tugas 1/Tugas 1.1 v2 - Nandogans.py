@@ -89,6 +89,9 @@ while ulang == True:
         ulang = True if ulang == 'y' else False 
         if ulang == True:
             tumpukanParagraf.clear() # Menghapus semua string yang ada di dalam tumpukanParagraf
+        else:
+            print("Program selesai. Sampai jumpa lagi!")
+            break
         
     else:
         print("Pilihan tidak valid. Silakan masukkan pilihan yang benar.")
